@@ -15,12 +15,20 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import math
+
 import pandas as pd
-import requests
 import streamlit as st
 
 sys.path.append(str(Path(__file__).resolve().parents[1]))
-from config import API_BASE, COMPLIANCE_DISCLAIMER
+from config import COMPLIANCE_DISCLAIMER
+from database.sqlite_store import fetch_all, fetch_by_isin
+from database.knowledge_graph import issuer_exposure, sector_issuers, bond_neighbours
+from engines.financial_engine import FinancialEngine
+from engines.search_engine import natural_language_search, filter_search
+from engines.rag_engine import ask as rag_ask
+from engines.compliance_engine import ComplianceEngine
+from engines.alerting_engine import generate_alerts
 
 NUMERIC_COLS = ("CouponRate", "FaceValue", "LastTradedPrice", "BidPrice",
                 "AskPrice", "Volume", "Yield", "Duration", "Spread")
@@ -48,20 +56,123 @@ st.set_page_config(
 )
 
 
+def _ok(data, **extra):
+    return {"ok": True, "data": data, **extra}
+
+def _err(msg):
+    return {"ok": False, "error": msg}
+
+def _jsonable_records(df: pd.DataFrame) -> list[dict]:
+    if df.empty:
+        return []
+    records = df.to_dict(orient="records")
+    for row in records:
+        for k, v in list(row.items()):
+            if isinstance(v, float) and math.isnan(v):
+                row[k] = None
+            elif isinstance(v, pd.Timestamp):
+                row[k] = v.isoformat()
+            elif isinstance(v, str) and v.strip().lower() in ("nan", "none", ""):
+                row[k] = None
+    return records
+
 def api_get(path: str, **params):
     try:
-        r = requests.get(f"{API_BASE}{path}", params=params, timeout=60)
-        return r.json()
+        if path == "/health":
+            return _ok({"status": "alive"})
+        if path == "/api/portfolio/summary":
+            df = fetch_all()
+            if df.empty:
+                return _ok({})
+            df["Yield"] = pd.to_numeric(df["Yield"], errors="coerce")
+            df["LastTradedPrice"] = pd.to_numeric(df["LastTradedPrice"], errors="coerce")
+            df["FaceValue"] = pd.to_numeric(df["FaceValue"], errors="coerce")
+            summary = {
+                "total_bonds":      int(len(df)),
+                "unique_issuers":   int(df["IssuerName"].nunique()),
+                "unique_sectors":   int(df["Sector"].nunique()),
+                "rating_breakdown": df["Rating"].value_counts().to_dict(),
+                "sector_breakdown": df["Sector"].value_counts().to_dict(),
+                "country_breakdown": df["Country"].value_counts().to_dict(),
+                "avg_yield":        float(df["Yield"].dropna().mean() or 0),
+                "avg_price":        float(df["LastTradedPrice"].dropna().mean() or 0),
+                "sources":          df["Source"].value_counts().to_dict(),
+            }
+            return _ok(summary)
+        if path == "/api/bonds":
+            limit = int(params.get("limit", 100))
+            offset = int(params.get("offset", 0))
+            df = fetch_all().iloc[offset:offset + limit]
+            return _ok(_jsonable_records(df), total=int(len(fetch_all())))
+        if path.startswith("/api/bonds/"):
+            isin = path.split("/api/bonds/")[1]
+            df = fetch_by_isin(isin)
+            if df.empty:
+                return _err(f"ISIN {isin} not found")
+            return _ok(_jsonable_records(df)[0])
+        if path.startswith("/api/kg/issuer/"):
+            name = path.split("/api/kg/issuer/")[1]
+            return _ok(issuer_exposure(name))
+        if path.startswith("/api/kg/sector/"):
+            name = path.split("/api/kg/sector/")[1]
+            return _ok({"sector": name, "issuers": sector_issuers(name)})
+        if path.startswith("/api/kg/bond/"):
+            isin = path.split("/api/kg/bond/")[1]
+            return _ok(bond_neighbours(isin))
+        if path == "/api/alerts":
+            out = generate_alerts(
+                yield_threshold=float(params.get("yield_threshold", 9.0)),
+                maturity_days=int(params.get("maturity_days", 90)),
+                price_dev=float(params.get("price_dev", 0.10)),
+                rating_floor=params.get("rating_floor", "BBB"),
+                min_volume=float(params.get("min_volume", 1000.0)),
+            )
+            return _ok(out, total=len(out))
+        if path == "/api/audit":
+            return _ok(ComplianceEngine.recent_audit(int(params.get("n", 50))))
+        return _err(f"Unknown path: {path}")
     except Exception as e:
-        return {"ok": False, "error": str(e)}
-
+        return _err(str(e))
 
 def api_post(path: str, payload: dict | None = None):
     try:
-        r = requests.post(f"{API_BASE}{path}", json=payload or {}, timeout=120)
-        return r.json()
+        body = payload or {}
+        if path == "/api/search":
+            q = body.get("query", "").strip()
+            if not q:
+                return _err("missing 'query'")
+            ComplianceEngine.audit("api_user", "search", {"query": q})
+            result = natural_language_search(q, k=int(body.get("k", 25)))
+            if result.get("structured_rows"):
+                result["structured_rows"] = _jsonable_records(
+                    pd.DataFrame(result["structured_rows"])
+                )
+            return _ok(result)
+        if path == "/api/search/filter":
+            df = filter_search(**body)
+            return _ok(_jsonable_records(df), total=int(len(df)))
+        if path == "/api/analytics":
+            isin = body.get("isin")
+            row = body
+            if isin:
+                df = fetch_by_isin(isin)
+                if df.empty:
+                    return _err(f"ISIN {isin} not found")
+                row = _jsonable_records(df)[0]
+            bench = body.get("benchmark_yield")
+            res = FinancialEngine.analyse(row, benchmark_yield=bench)
+            ComplianceEngine.audit("api_user", "analytics", {"isin": isin})
+            return _ok({"row": row, "analytics": res.as_dict()})
+        if path == "/api/copilot":
+            q = body.get("question", "").strip()
+            if not q:
+                return _err("missing 'question'")
+            out = rag_ask(q, k=int(body.get("k", 6)))
+            ComplianceEngine.audit("api_user", "copilot", {"q": q, "engine": out.get("engine")})
+            return _ok(out)
+        return _err(f"Unknown path: {path}")
     except Exception as e:
-        return {"ok": False, "error": str(e)}
+        return _err(str(e))
 
 
 with st.sidebar:
@@ -72,12 +183,7 @@ with st.sidebar:
         "Knowledge Graph", "Alerts", "Compliance", "Admin",
     ])
     st.divider()
-    h = api_get("/health")
-    if h.get("ok"):
-        st.success("API: connected")
-    else:
-        st.error(f"API offline: {h.get('error','?')}")
-        st.code(f"Start with: python -m api.app")
+    st.success("Engine: ready")
     st.divider()
     st.caption(COMPLIANCE_DISCLAIMER)
 
