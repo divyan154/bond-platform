@@ -8,6 +8,14 @@ try:
 except ImportError:
     pass
 
+try:
+    import streamlit as st
+    for _k, _v in st.secrets.items():
+        if isinstance(_v, str):
+            os.environ.setdefault(_k, _v)
+except Exception:
+    pass
+
 ROOT_DIR = Path(__file__).resolve().parent
 RAW_DATA_DIR = ROOT_DIR / "raw_data"
 OUTPUT_DIR = ROOT_DIR / "output"
