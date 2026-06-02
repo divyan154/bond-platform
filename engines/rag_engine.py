@@ -377,8 +377,7 @@ from pathlib import Path
 from typing import Optional
 
 sys.path.append(str(Path(__file__).resolve().parents[1]))
-from config import (OPENAI_API_KEY, GEMINI_API_KEY, OPENAI_MODEL, GEMINI_MODEL,
-                    LLM_PROVIDER, MIN_CONFIDENCE, COMPLIANCE_DISCLAIMER)
+from config import (OPENAI_MODEL, GEMINI_MODEL, MIN_CONFIDENCE, COMPLIANCE_DISCLAIMER)
 from database.vector_store import semantic_search
 from database.sqlite_store  import fetch_by_isin, fetch_all
 from database.knowledge_graph import bond_neighbours, issuer_exposure
@@ -638,21 +637,26 @@ def _build_prompt(context: str, snapshot: str, question: str) -> str:
 
 
 def _llm_provider() -> Optional[str]:
-    if LLM_PROVIDER == "openai" and OPENAI_API_KEY:
+    import os
+    openai_key = os.getenv("OPENAI_API_KEY", "").strip()
+    gemini_key = os.getenv("GEMINI_API_KEY", "").strip()
+    provider = os.getenv("LLM_PROVIDER", "auto").lower()
+    if provider == "openai" and openai_key:
         return "openai"
-    if LLM_PROVIDER == "gemini" and GEMINI_API_KEY:
+    if provider == "gemini" and gemini_key:
         return "gemini"
-    if LLM_PROVIDER == "auto":
-        if OPENAI_API_KEY:
+    if provider == "auto":
+        if openai_key:
             return "openai"
-        if GEMINI_API_KEY:
+        if gemini_key:
             return "gemini"
     return None
 
 
 def _call_openai(context: str, snapshot: str, question: str) -> str:
+    import os
     from openai import OpenAI
-    client = OpenAI(api_key=OPENAI_API_KEY)
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY", ""))
     resp = client.chat.completions.create(
         model=OPENAI_MODEL,
         temperature=0.2,
@@ -666,9 +670,10 @@ def _call_openai(context: str, snapshot: str, question: str) -> str:
 
 def _call_gemini(context: str, snapshot: str, question: str) -> str:
     """Uses the new google-genai SDK with a current model."""
+    import os
     from google import genai
     from google.genai import types
-    client = genai.Client(api_key=GEMINI_API_KEY)
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY", ""))
     resp = client.models.generate_content(
         model=GEMINI_MODEL,
         contents=_build_prompt(context, snapshot, question),
