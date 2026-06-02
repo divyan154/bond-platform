@@ -4,7 +4,7 @@ import os
 
 try:
     from dotenv import load_dotenv
-    load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")
+    load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env", override=True)
 except ImportError:
     pass
 
