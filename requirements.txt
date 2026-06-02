@@ -1,0 +1,30 @@
+# Core data + math
+pandas>=2.0
+numpy>=1.24
+scipy>=1.10
+python-dateutil>=2.8
+
+# Storage / search
+chromadb>=0.4.22
+sentence-transformers>=2.5
+networkx>=3.0
+
+# Web layer
+flask>=3.0
+flask-cors>=4.0
+streamlit>=1.30
+requests>=2.31
+
+# LLM clients (optional — only used if API keys present)
+openai>=1.12
+google-generativeai>=0.5
+
+# Optional data collection
+nselib>=1.0; platform_system != "Darwin"
+kaggle>=1.6
+opendatasets>=0.1
+
+# Misc
+python-dotenv>=1.0
+tqdm>=4.65
+matplotlib>=3.7

@@ -1,0 +1,26 @@
+Date,Index_Name,Yield,Duration,Spread,BondType
+2026-05-21,AAA Rated Bonds,6.45,5.2,180,Corporate
+2026-05-21,AA Rated Bonds,6.75,5.5,220,Corporate
+2026-05-21,A Rated Bonds,7.15,5.8,280,Corporate
+2026-05-21,BBB Rated Bonds,7.65,6.1,350,Corporate
+2026-05-21,Government Securities,6.50,4.8,0,Government
+2026-05-20,AAA Rated Bonds,6.42,5.2,182,Corporate
+2026-05-20,AA Rated Bonds,6.72,5.5,222,Corporate
+2026-05-20,A Rated Bonds,7.12,5.8,282,Corporate
+2026-05-20,BBB Rated Bonds,7.62,6.1,352,Corporate
+2026-05-20,Government Securities,6.48,4.8,2,Government
+2026-05-19,AAA Rated Bonds,6.48,5.2,175,Corporate
+2026-05-19,AA Rated Bonds,6.78,5.5,215,Corporate
+2026-05-19,A Rated Bonds,7.18,5.8,275,Corporate
+2026-05-19,BBB Rated Bonds,7.68,6.1,345,Corporate
+2026-05-19,Government Securities,6.52,4.8,-2,Government
+2026-05-18,AAA Rated Bonds,6.40,5.1,185,Corporate
+2026-05-18,AA Rated Bonds,6.70,5.4,225,Corporate
+2026-05-18,A Rated Bonds,7.10,5.7,285,Corporate
+2026-05-18,BBB Rated Bonds,7.60,6.0,355,Corporate
+2026-05-18,Government Securities,6.50,4.8,0,Government
+2026-05-17,AAA Rated Bonds,6.38,5.1,188,Corporate
+2026-05-17,AA Rated Bonds,6.68,5.4,228,Corporate
+2026-05-17,A Rated Bonds,7.08,5.7,288,Corporate
+2026-05-17,BBB Rated Bonds,7.58,6.0,358,Corporate
+2026-05-17,Government Securities,6.52,4.8,-2,Government

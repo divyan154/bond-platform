@@ -1,0 +1,15 @@
+Symbol,Issuer,Country,Currency,CouponRate,MaturityDate,Price,FaceValue,Rating,Sector,BondType
+JPM-US,JPMorgan Chase,USA,USD,4.50,2028-06-15,1015.20,1000,A+,Banking,Corporate
+MS-US,Morgan Stanley,USA,USD,4.75,2029-03-20,1022.40,1000,A,Banking,Corporate
+GS-US,Goldman Sachs,USA,USD,4.85,2028-09-10,1024.80,1000,A+,Banking,Corporate
+APPLE-US,Apple Inc,USA,USD,3.50,2026-05-16,1008.60,1000,AA+,Technology,Corporate
+MSFT-US,Microsoft Corp,USA,USD,3.80,2027-02-10,1011.40,1000,AA+,Technology,Corporate
+GOOGLE-US,Alphabet Inc,USA,USD,4.10,2029-11-25,1018.90,1000,AA+,Technology,Corporate
+NESTLE-CH,Nestle SA,Switzerland,CHF,2.50,2027-04-15,1005.30,1000,AA,Consumer,Corporate
+SIEMENS-DE,Siemens AG,Germany,EUR,2.75,2028-08-22,1008.70,1000,AA-,Engineering,Corporate
+NOVO-DK,Novo Nordisk,Denmark,DKK,3.25,2026-09-10,1003.40,1000,AA+,Healthcare,Corporate
+AZN-UK,AstraZeneca,UK,GBP,3.90,2029-01-15,1012.50,1000,A+,Healthcare,Corporate
+SANOFI-FR,Sanofi,France,EUR,3.10,2027-05-20,1009.80,1000,A+,Healthcare,Corporate
+ASML-NL,ASML Holding,Netherlands,EUR,2.85,2028-11-12,1007.60,1000,AA-,Technology,Corporate
+TSMC-TW,Taiwan Semiconductor,Taiwan,TWD,3.40,2028-03-25,1010.40,1000,AA,Technology,Corporate
+SAMSUNG-KR,Samsung Electronics,South Korea,KRW,4.20,2029-07-08,1019.30,1000,AA,Technology,Corporate
