@@ -13,8 +13,6 @@ build/
 venv/
 env/
 
-# Output / generated data
-output/
 
 # OS
 .DS_Store

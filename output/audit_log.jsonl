@@ -1,0 +1,59 @@
+{"ts": "2026-05-21T16:44:03.924044Z", "actor": "smoke_test", "action": "self_check", "payload": {"ok": true}}
+{"ts": "2026-05-21T16:45:18.218939Z", "actor": "api_user", "action": "search", "payload": {"query": "highest yielding banking bonds"}}
+{"ts": "2026-05-21T16:46:07.604401Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Show me AA-rated banking bonds maturing within 3 years", "engine": "retrieval-only"}}
+{"ts": "2026-05-22T23:09:08.903741Z", "actor": "api_user", "action": "copilot", "payload": {"q": "what is this data about?", "engine": "retrieval-only (LLM failed: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.)"}}
+{"ts": "2026-05-23T05:40:16.502400Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "CH0038863350"}}
+{"ts": "2026-05-25T17:51:52.155599Z", "actor": "api_user", "action": "copilot", "payload": {"q": "compare emerging bond vs corporate bond", "engine": "retrieval-only (LLM failed: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.)"}}
+{"ts": "2026-05-25T18:03:13.612905Z", "actor": "api_user", "action": "copilot", "payload": {"q": "compare emerging bond vs corporate bond", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-05-25T18:07:20.044089Z", "actor": "api_user", "action": "copilot", "payload": {"q": "compare emerging bond vs corporate bond", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-05-25T18:11:44.036854Z", "actor": "api_user", "action": "copilot", "payload": {"q": "compare banking vs engineering bonds", "engine": "gemini/gemini-3.5-flash"}}
+{"ts": "2026-05-25T18:15:23.605610Z", "actor": "api_user", "action": "copilot", "payload": {"q": "compare TCS Ltd bonds vs Infosys Ltd bonds", "engine": "gemini/gemini-3.5-flash"}}
+{"ts": "2026-05-25T18:17:41.297715Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "CH0038863350"}}
+{"ts": "2026-05-26T04:29:02.208939Z", "actor": "api_user", "action": "search", "payload": {"query": "Emerging Market Bond"}}
+{"ts": "2026-05-26T04:29:04.515039Z", "actor": "api_user", "action": "search", "payload": {"query": "Emerging Market Bond"}}
+{"ts": "2026-05-26T04:29:59.078858Z", "actor": "api_user", "action": "copilot", "payload": {"q": "analyse Emerging Market Bond", "engine": "gemini/gemini-3.5-flash"}}
+{"ts": "2026-05-30T10:50:40.096637Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds maturing under 3 years"}}
+{"ts": "2026-05-30T10:55:23.131344Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "CH0038863350"}}
+{"ts": "2026-05-30T11:06:29.177844Z", "actor": "api_user", "action": "copilot", "payload": {"q": "COmpare bond data of maruti suzuki and laursen and tubro and tell me which one to buy", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-06-01T04:44:38.912886Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds maturing within 3 years"}}
+{"ts": "2026-06-01T04:49:04.256750Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EM1"}}
+{"ts": "2026-06-01T09:37:55.991528Z", "actor": "api_user", "action": "copilot", "payload": {"q": "What is the average coupon of the bonds in my database?", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-06-01T09:39:20.123913Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Explain Yield to Maturity and how it's calculated", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-06-01T09:40:08.417328Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Compare HDFC Ltd bonds vs ICICI Bank bonds", "engine": "retrieval-only (LLM failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}})"}}
+{"ts": "2026-06-01T09:42:07.194671Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Compare HDFC Ltd bonds vs ICICI Bank bonds", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-06-01T09:43:57.672659Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Compare TCS Ltd bonds vs Infosys Ltd bonds", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-06-01T09:45:00.362603Z", "actor": "api_user", "action": "copilot", "payload": {"q": "AA bonds above 6% YTM maturing within 4 years", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-06-01T09:46:28.376819Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Show me the highest yielding AAA-rated bonds", "engine": "gemini/gemini-2.5-flash"}}
+{"ts": "2026-06-01T09:51:14.450456Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Compare emerging market bonds vs corporate bonds", "engine": "retrieval-only (LLM failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}})"}}
+{"ts": "2026-06-01T09:56:25.915457Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "CH0038863350"}}
+{"ts": "2026-06-01T09:56:38.417447Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "FR0000120578"}}
+{"ts": "2026-06-01T09:56:43.201789Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EM1"}}
+{"ts": "2026-06-01T10:03:00.704302Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds Available"}}
+{"ts": "2026-06-01T10:03:11.683604Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds Available"}}
+{"ts": "2026-06-01T10:03:46.330642Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds Available"}}
+{"ts": "2026-06-01T10:03:54.284029Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds Available"}}
+{"ts": "2026-06-01T10:03:58.284856Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds Available"}}
+{"ts": "2026-06-01T10:04:05.202050Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds Available"}}
+{"ts": "2026-06-01T10:05:11.452178Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "CH0038863350"}}
+{"ts": "2026-06-01T10:05:22.652653Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EU5"}}
+{"ts": "2026-06-01T10:05:40.068683Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EW1"}}
+{"ts": "2026-06-01T10:08:47.329245Z", "actor": "api_user", "action": "search", "payload": {"query": "AA rated emerging market bonds"}}
+{"ts": "2026-06-01T10:08:52.354003Z", "actor": "api_user", "action": "search", "payload": {"query": "AA rated emerging market bonds"}}
+{"ts": "2026-06-01T10:09:16.833540Z", "actor": "api_user", "action": "search", "payload": {"query": "AA rated emerging market bonds"}}
+{"ts": "2026-06-01T10:09:20.119215Z", "actor": "api_user", "action": "search", "payload": {"query": "AA rated emerging market bonds"}}
+{"ts": "2026-06-01T10:09:33.069905Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EU5"}}
+{"ts": "2026-06-01T10:09:37.401755Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EW1"}}
+{"ts": "2026-06-01T10:09:54.350169Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07ES9"}}
+{"ts": "2026-06-01T10:10:46.084933Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE002A07UV4"}}
+{"ts": "2026-06-01T10:10:52.245454Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE002A07UW2"}}
+{"ts": "2026-06-01T10:10:56.535374Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE002A07UU6"}}
+{"ts": "2026-06-01T10:11:03.383983Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EP5"}}
+{"ts": "2026-06-01T10:12:49.158045Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07ES9"}}
+{"ts": "2026-06-01T10:13:57.167074Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "CH0038863350"}}
+{"ts": "2026-06-01T10:14:02.785676Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EM1"}}
+{"ts": "2026-06-01T11:36:08.558497Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds maturing within 3 years"}}
+{"ts": "2026-06-01T11:36:12.908699Z", "actor": "api_user", "action": "search", "payload": {"query": "AA bonds maturing within 3 years"}}
+{"ts": "2026-06-01T11:38:13.460146Z", "actor": "api_user", "action": "analytics", "payload": {"isin": "INE001A07EM1"}}
+{"ts": "2026-06-01T11:40:13.810535Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Compare hdfc ltd bond and icici bank bonds", "engine": "retrieval-only (LLM failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}})"}}
+{"ts": "2026-06-01T11:41:08.486576Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Compare hdfc ltd bonds vs icici bank bonds", "engine": "retrieval-only (LLM failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}})"}}
+{"ts": "2026-06-01T11:41:53.310909Z", "actor": "api_user", "action": "copilot", "payload": {"q": "Tell me about the emerging market bonds", "engine": "retrieval-only (LLM failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}})"}}
